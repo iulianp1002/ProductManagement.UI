@@ -35,27 +35,20 @@ import {MatNativeDateModule} from '@angular/material/core';
 })
 export class ProductDialogComponent implements OnInit{
 
-  fileName = '';
   selectedValue ='';
   stores :Store[] =  [];
   productForm! : FormGroup;
   actionBtn: string = 'save';
-  titleAction: string = "add";
+  titleAction: string = "Adauga";
   store = new FormControl(this.stores);
   selectedStores : Store[] = [];
-  selectedStoreIds: number[]= [];
+
 
 
   selectedVal:any;
 
 
-  progressInfos: any[] = [];
-  message: string[] = [];
 
-  previews: string[] = [];
-  imageInfos?: Observable<any>;
-  @ViewChild('fileInput')
-  myInput!: ElementRef;
 
   constructor (private http: HttpClient, 
     private formBuilder: FormBuilder,
@@ -86,9 +79,9 @@ export class ProductDialogComponent implements OnInit{
       })
     
       if(this.editProductData){
-        console.log('edit form:',this.editProductData)
+
         
-        this.selectedVal = this.selectedStoreIds;
+        this.selectedVal = this.editProductData.codMagazin;
         this.actionBtn='update';
         this.titleAction='update';
         this.productForm.controls['codIdx']?.setValue(this.editProductData.codIdx);
@@ -117,52 +110,18 @@ export class ProductDialogComponent implements OnInit{
         }
       }
     
-    getStoreIdList(authorList:Store[]):number[]{
+    getProductIdList(productList:Store[]):number[]{
       let arrId : number[] = [];
       
-      for ( var i = 0; i < authorList.length; i++ ) {
+      for ( var i = 0; i < productList.length; i++ ) {
           
-          arrId.push(parseInt((authorList[i]).toString()));
+          arrId.push(parseInt((productList[i]).toString()));
         
       } 
       
       return arrId;
     }
     
-    // getAuthorIndexed(selectedAuthors: string): void{
-    //   let arrId : number[] = [];
-    //   let splitted = selectedAuthors.split(',');
-    
-    //   var data = this.storeService.getStores().subscribe({
-    //     next: (res)=>{
-    
-    //       splitted.forEach((x, i) =>{
-      
-    //         for ( var i = 0; i < res.length; i++ ) {
-            
-    //           if (res[i].name === x.trimStart().trimEnd()){
-                
-    //               arrId.push(parseInt((res[i].id ?? 0).toString()));
-              
-    //           }
-    //         } 
-    //       });
-    //       this.selectedVal = arrId;
-    //       this.selectedAuthorIds = arrId;
-    //     }
-    //   })
-    // }
-    
-    // getStoreList(authorids:number[]){
-    //   var data = this.storeService.getStores().subscribe({
-    //     next: (res)=>{
-    //       var filteredArray = res.filter(function(itm){
-    //         return authorids.indexOf(itm.codMagazin ) > -1;
-    //       });
-    //       return filteredArray;
-    //     }
-    //   });
-    // }
     
      addProduct(){
       if(!this.editProductData){ 
@@ -189,7 +148,7 @@ export class ProductDialogComponent implements OnInit{
         }else{
           console.log('not valid form:',this.productForm)
         }
-      }else{ console.log('inside edit')
+      }else{ 
         this.updateProduct();
       }
      }

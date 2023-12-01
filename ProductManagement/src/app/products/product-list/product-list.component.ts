@@ -10,10 +10,25 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule, matDatepickerAnimations} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatButtonModule} from '@angular/material/button';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatDialogModule,MatFormFieldModule,MatIconModule,MatPaginatorModule,MatInputModule],
+  imports: [
+    CommonModule, 
+    MatTableModule, 
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
+  ],
+
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
   providers:[ProductService]
@@ -39,7 +54,7 @@ constructor (private dialog: MatDialog,
   
   openDialogProduct() {
     this.dialog.open(ProductDialogComponent, {
-      width:'30%'
+      width:'25%',height:'75%'
     }).afterClosed().subscribe(val=>{
       if(val==='save'){
         this.getAllProducts();
@@ -81,10 +96,10 @@ constructor (private dialog: MatDialog,
     });;
   }
 
-  deleteProduct(data:any, codIdx: string, codIdxAlt: string){
+  deleteProduct(row:any,codIdx: string, codIdxAlt: string){ 
     this.productService.deleteProduct(codIdx,codIdxAlt).subscribe({
       next:(res:any)=>{
-        alert('book was deleted!')
+        alert('produsul a fost sters!')
         this.getAllProducts();
       }
     })

@@ -12,6 +12,9 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductService } from './products/product.service';
 import { Product } from './products/product';
 import { first } from 'rxjs';
+import { Store } from './stores/store';
+import { StoreListComponent } from './stores/store-list/store-list.component';
+import { StoreService } from './stores/store.service';
 
 @Component({
   selector: 'app-root',
@@ -27,36 +30,45 @@ export class AppComponent implements OnInit{
   opened: boolean = true;
 
   @ViewChild(ProductListComponent) productList: any;
+  @ViewChild(StoreListComponent) storeList: any;
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-  totalStores = 5;
-  totalProducts = 300;
+  totalStores = 0;
+  totalProducts = 0;
 
   constructor (
-    private productService: ProductService){
+    private productService: ProductService, private storeService: StoreService){
 
 }
 
    public ngOnInit(): void {
     this.getAllProducts();
-    this.totalProducts = this.productList;
+    this.getAllStores();
 
+    this.storeService.StoresStateEvent.pipe(first()).subscribe((res:Store[]) => {
+      this.totalStores = res.length;
+    });
 
     this.productService.ProductsStateEvent.pipe(first()).subscribe((res:Product[]) => {
       this.totalProducts = res.length;
-  });
+    });
     
   }
 
   getAllProducts(){
     this.productService.getProducts().subscribe({
       next:(res: Product[])=>{
-        //map  source
         this.productList = res.length;
-        
       },
-      
+    })
+  }
+
+  getAllStores(){
+    this.storeService.getStores().subscribe({
+      next:(res: Store[])=>{
+        this.storeList = res.length;
+      },
     })
   }
 }

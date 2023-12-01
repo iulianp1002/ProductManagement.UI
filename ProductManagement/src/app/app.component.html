@@ -11,7 +11,7 @@
                (closed)="events.push('close!')">
     <p style="color: white;">Sidenav content</p>
     
-   <mat-list>
+   <mat-selection-list #shoes>
     <mat-list-item>
       <mat-icon matListItemIcon>home</mat-icon>
       <div matListItemTitle>Magazine</div>
@@ -28,9 +28,9 @@
         </a>
       </div>
     </mat-list-item>
-   </mat-list>
+   </mat-selection-list>
   </mat-sidenav>
-
+  
   <mat-sidenav-content>
     <div class="grid-container">
 
@@ -46,35 +46,7 @@
       </div>
     
   </div>
-    <!-- <div class="float-container">
-
-      <div class="float-child">
-        <div class="green">Float Column 1</div>
-      </div>
-      
-      <div class="float-child">
-        <div class="blue">Float Column 2</div>
-      </div>
-      
-    </div> -->
-    <!-- <div class="main-content-container">
-
     
-    <div class="trigger-button">
-      <button  mat-fab color="accent" aria-label="Example icon button with a bookmark icon" (click)="sidenav.toggle()" class="buttonish" >
-        <mat-icon  *ngIf="!sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_right</mat-icon>
-        <mat-icon *ngIf="sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_left</mat-icon>
-        </button>
-    </div>
-      
-   
-  <div class="main-window">
-    <router-outlet></router-outlet>
-  </div>
-</div> -->
-    <!-- <div class="example-events">
-      <div *ngFor="let e of events">{{e}}</div>
-    </div> -->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{titleAction}} Produs</h1>>
+<h1 class="spaced10-buttons" mat-dialog-title>{{titleAction}} Produs</h1>
 <div mat-dialog-content>
     <form [formGroup]="productForm">
 
@@ -14,7 +14,7 @@
 
     <mat-form-field>
         <mat-label>Alege Magazin</mat-label>
-        <mat-select [ngModel]="selectedVal"  formControlName="stores" [formControl]="store"  ngDefaultControl (ngModelChane)="selectedVal">
+        <mat-select [ngModel]="selectedVal"  formControlName="codMagazin" [formControl]="store"  ngDefaultControl (ngModelChange)="selectedVal">
           <mat-option *ngFor="let store of stores" [value]="store.codMagazin" (onSelectionChange)="getValues($event)" required>{{store.codMagazin}}-{{store.denumire}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -24,13 +24,8 @@
         <input formControlName="denumire" matInput placeholder="Denumire">
     </mat-form-field> 
 
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>Data Inregistrare</mat-label>
-        <input formControlName="dataInregistrare" matInput placeholder="Data inregistrare">
-    </mat-form-field> -->
-
     <mat-form-field class="mat-50">
-        <mat-label>Date of Birth</mat-label>
+        <mat-label>Data Inregistrare</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dataInregistrare">
         <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
         <mat-hint>dd.MM.yyyy</mat-hint>
@@ -49,8 +44,8 @@
     </form>
     
 </div>
-<div mat-dialog-actions [align]="'end'">
-    <button mat-raised-button color="warn" mat-dialog-close="">Anuleaza</button>
-    <button mat-raised-button color="primary" (click)="addProduct()">Salveaza</button>
+<div mat-dialog-actions [align]="'end'" >
+    <button mat-raised-button color="warn" mat-dialog-close="" class="spaced10-buttons">Anuleaza</button>
+    <button mat-raised-button color="primary" (click)="addProduct()" class="spaced10-buttons">Salveaza</button>
 </div>
 
