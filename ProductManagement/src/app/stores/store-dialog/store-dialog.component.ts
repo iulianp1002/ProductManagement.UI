@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -70,11 +70,11 @@ export class StoreDialogComponent {
     if (this.editStoreData) {
       this.actionBtn = 'update';
       this.titleAction = 'Modifica';
-
+      
       this.storeForm.controls['codMagazin']?.setValue(this.editStoreData.codMagazin);
       this.storeForm.controls['denumire'].setValue(this.editStoreData.denumire);
       this.storeForm.controls['detalii']?.setValue(this.editStoreData.detalii);
-
+    
     }
 
 
@@ -112,17 +112,18 @@ export class StoreDialogComponent {
   updateStore() {
 
     var updateModel = new Store();
-
+//this.storeForm.controls['codMagazin'].disable();
     updateModel.codMagazin = this.storeForm.value.codMagazin;
     updateModel.denumire = this.storeForm.value.denumire;
     updateModel.detalii = this.storeForm.value.detalii;
 
-
+console.log(updateModel)
     this.storeService.updateStore(updateModel).subscribe({
       next: (res: any) => {
         alert("magazin actualizat cu succes !");
         this.storeForm.reset();
         this.dialogRef.close('update');
+   
       },
       error: (err: any) => {
       }

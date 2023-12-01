@@ -4,7 +4,7 @@
 
     <mat-form-field appearance="fill">
         <mat-label>CodIdx</mat-label>
-        <input formControlName="codIdx" matInput placeholder="CodIdx"> 
+        <input formControlName="codIdx" matInput placeholder="CodIdx" > 
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -26,7 +26,7 @@
 
     <mat-form-field class="mat-50">
         <mat-label>Data Inregistrare</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dataInregistrare">
+        <input matInput [matDatepicker]="picker" formControlName="dataInregistrare" >
         <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
         <mat-hint>DD.MM.YYYY</mat-hint>
         <mat-datepicker #picker></mat-datepicker>
