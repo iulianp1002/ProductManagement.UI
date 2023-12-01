@@ -125,7 +125,7 @@ export class ProductDialogComponent implements OnInit{
     
      addProduct(){
       if(!this.editProductData){ 
-        if(this.productForm.valid){ console.log('ading',this.productForm.value)
+        if(this.productForm.valid){
         var productFormated = new Product();
         productFormated.codIdx = this.productForm.value.codIdx;
         productFormated.codIdxAlt = this.productForm.value.codIdxAlt;

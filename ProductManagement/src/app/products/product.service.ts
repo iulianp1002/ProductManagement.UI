@@ -20,7 +20,7 @@ export class ProductService {
   public getProducts(): Observable<Product[]>{
 
     return this.http.get<Product[]>(`${environment.apiURL}/${this.url}/ProductList`).pipe(
-      tap((data) => {this.ProductsStateEvent.emit(data); }))
+      tap((data) => {this.ProductsStateEvent.emit(data);console.log('countp:',data) }))
   
   }
 

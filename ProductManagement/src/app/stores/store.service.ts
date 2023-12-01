@@ -21,7 +21,7 @@ export class StoreService {
   public getStores(): Observable<Store[]>{
 
     return this.http.get<Store[]>(`${environment.apiURL}/${this.url}/StoreList`).pipe(
-      tap((data) => {this.StoresStateEvent.emit(data); }))
+      tap((data) => {this.StoresStateEvent.emit(data);console.log('counts:',data) }))
   
   }
 

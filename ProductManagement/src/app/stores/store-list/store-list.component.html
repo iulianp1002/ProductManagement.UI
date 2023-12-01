@@ -1,3 +1,5 @@
+<h1 class="anchor-header">Magazine</h1>
+
 <div class="container">
     <div style="margin-top: 20px;">
       <mat-form-field>
@@ -29,13 +31,13 @@
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Actiune </th>
             <td mat-cell *matCellDef="let row" class="tdButtons"> 
               <div >
                 <button mat-icon-button color="primary" (click)="editStore(row)">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="deleteStore(row.CodMagazin)">
+                <button mat-icon-button color="warn" (click)="deleteStore(row.codMagazin)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
@@ -53,7 +55,7 @@
       
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="magazii per pagina"></mat-paginator>
       </div>
-      <button mat-raised-button color="accent" class="adding" (click)="openDialogStore()">+</button>
+      <button mat-fab color="primary" class="fav-button"  (click)="openDialogStore()"><mat-icon>note_add</mat-icon></button>
     </div>
   </div>
 

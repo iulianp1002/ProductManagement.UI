@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -10,9 +10,10 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule, matDatepickerAnimations} from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -84,7 +85,7 @@ constructor (private dialog: MatDialog,
     }
   }
 
-  editProduct(row: any) { console.log('editing row:',row);
+  editProduct(row: any) { 
     this.dialog.open(ProductDialogComponent, {
       width:'30%',
       data: row
