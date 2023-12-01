@@ -37,7 +37,7 @@ export class StoreDialogComponent {
   fileName = '';
   selectedValue = '';
   storeForm!: FormGroup;
-  actionBtn: string = 'Salveaza';
+  actionBtn: string = 'save';
   titleAction: string = "Adauga";
   selectedVal: any;
   stores: Store[] = [];
@@ -69,7 +69,7 @@ export class StoreDialogComponent {
 
     if (this.editStoreData) {
       this.actionBtn = 'update';
-      this.titleAction = 'update';
+      this.titleAction = 'Modifica';
 
       this.storeForm.controls['codMagazin']?.setValue(this.editStoreData.codMagazin);
       this.storeForm.controls['denumire'].setValue(this.editStoreData.denumire);

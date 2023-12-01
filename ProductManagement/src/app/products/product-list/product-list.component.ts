@@ -1,25 +1,25 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Product } from '../product';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductService } from '../product.service';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatButtonModule} from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatTableModule, 
+    CommonModule,
+    MatTableModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -32,11 +32,11 @@ import {MatButtonModule} from '@angular/material/button';
 
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
-  providers:[ProductService]
+  providers: [ProductService]
 })
 export class ProductListComponent {
 
-  displayedColumns: string[] = ['codIdx', 'codIdxAlt', 'codMagazin', 'denumire','dataInregistrare','cantitate','pretUnitar','action'];
+  displayedColumns: string[] = ['codIdx', 'codIdxAlt', 'codMagazin', 'denumire', 'dataInregistrare', 'cantitate', 'pretUnitar', 'action'];
   dataSource!: MatTableDataSource<Product>;
   showImage: boolean = false;
   public productList = 0;
@@ -44,36 +44,35 @@ export class ProductListComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-constructor (private dialog: MatDialog,
-             private productService: ProductService,
-             private renderer:Renderer2){
+  constructor(private dialog: MatDialog,
+    private productService: ProductService) {
 
-}
+  }
   ngOnInit(): void {
     this.getAllProducts();
   }
-  
+
   openDialogProduct() {
     this.dialog.open(ProductDialogComponent, {
-      width:'25%',height:'75%'
-    }).afterClosed().subscribe(val=>{
-      if(val==='save'){
+      width: '25%', height: '75%'
+    }).afterClosed().subscribe(val => {
+      if (val === 'save') {
         this.getAllProducts();
       }
     });
   }
 
 
-  getAllProducts(){
+  getAllProducts() {
     this.productService.getProducts().subscribe({
-      next:(res: Product[])=>{
+      next: (res: Product[]) => {
         //map  source
         this.productList = res.length;
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      
+
     })
   }
   applyFilter(event: Event) {
@@ -85,27 +84,27 @@ constructor (private dialog: MatDialog,
     }
   }
 
-  editProduct(row: any) { 
+  editProduct(row: any) {
     this.dialog.open(ProductDialogComponent, {
-      width:'30%',
+      width: '30%',
       data: row
-    }).afterClosed().subscribe(val=>{
-      if(val==='update'){
+    }).afterClosed().subscribe(val => {
+      if (val === 'update') {
         this.getAllProducts();
       }
-      
+
     });;
   }
 
-  deleteProduct(row:any,codIdx: string, codIdxAlt: string){ 
-    this.productService.deleteProduct(codIdx,codIdxAlt).subscribe({
-      next:(res:any)=>{
+  deleteProduct(row: any, codIdx: string, codIdxAlt: string) {
+    this.productService.deleteProduct(codIdx, codIdxAlt).subscribe({
+      next: (res: any) => {
         alert('produsul a fost sters!')
         this.getAllProducts();
       }
     })
   }
 
- 
+
 
 }

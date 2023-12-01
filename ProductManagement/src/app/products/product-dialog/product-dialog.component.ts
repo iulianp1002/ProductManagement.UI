@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @Component({
   selector: 'app-product-dialog',
@@ -39,26 +39,30 @@ export class ProductDialogComponent implements OnInit{
   stores :Store[] =  [];
   productForm! : FormGroup;
   actionBtn: string = 'save';
-  titleAction: string = "Adauga";
+  titleAction: string = "add";
   store = new FormControl(this.stores);
   selectedStores : Store[] = [];
-
+  selectedStoreIds: number[]= [];
 
 
   selectedVal:any;
 
 
+  progressInfos: any[] = [];
+  message: string[] = [];
 
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
+  @ViewChild('fileInput')
+  myInput!: ElementRef;
 
   constructor (private http: HttpClient, 
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storeService: StoreService,
-    private dateAdapter: DateAdapter<Date>,
+    
     private dialogRef: MatDialogRef<ProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public editProductData : Product){
-      this.dateAdapter.setLocale('ro-RO');
-    }
+    @Inject(MAT_DIALOG_DATA) public editProductData : Product){}
 
 
     ngOnInit(): void {
@@ -81,9 +85,9 @@ export class ProductDialogComponent implements OnInit{
       })
     
       if(this.editProductData){
-
+        console.log('edit form:',this.editProductData)
         
-        this.selectedVal = this.editProductData.codMagazin;
+        this.selectedVal = this.selectedStoreIds;
         this.actionBtn='update';
         this.titleAction='update';
         this.productForm.controls['codIdx']?.setValue(this.editProductData.codIdx);
@@ -124,10 +128,44 @@ export class ProductDialogComponent implements OnInit{
       return arrId;
     }
     
+    // getAuthorIndexed(selectedAuthors: string): void{
+    //   let arrId : number[] = [];
+    //   let splitted = selectedAuthors.split(',');
+    
+    //   var data = this.storeService.getStores().subscribe({
+    //     next: (res)=>{
+    
+    //       splitted.forEach((x, i) =>{
+      
+    //         for ( var i = 0; i < res.length; i++ ) {
+            
+    //           if (res[i].name === x.trimStart().trimEnd()){
+                
+    //               arrId.push(parseInt((res[i].id ?? 0).toString()));
+              
+    //           }
+    //         } 
+    //       });
+    //       this.selectedVal = arrId;
+    //       this.selectedAuthorIds = arrId;
+    //     }
+    //   })
+    // }
+    
+    // getStoreList(authorids:number[]){
+    //   var data = this.storeService.getStores().subscribe({
+    //     next: (res)=>{
+    //       var filteredArray = res.filter(function(itm){
+    //         return authorids.indexOf(itm.codMagazin ) > -1;
+    //       });
+    //       return filteredArray;
+    //     }
+    //   });
+    // }
     
      addProduct(){
       if(!this.editProductData){ 
-        if(this.productForm.valid){
+        if(this.productForm.valid){ console.log('ading',this.productForm.value)
         var productFormated = new Product();
         productFormated.codIdx = this.productForm.value.codIdx;
         productFormated.codIdxAlt = this.productForm.value.codIdxAlt;
@@ -150,7 +188,7 @@ export class ProductDialogComponent implements OnInit{
         }else{
           console.log('not valid form:',this.productForm)
         }
-      }else{ 
+      }else{ console.log('inside edit')
         this.updateProduct();
       }
      }
