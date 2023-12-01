@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
 
 @Component({
   selector: 'app-product-dialog',
@@ -54,9 +54,11 @@ export class ProductDialogComponent implements OnInit{
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storeService: StoreService,
-    
+    private dateAdapter: DateAdapter<Date>,
     private dialogRef: MatDialogRef<ProductDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public editProductData : Product){}
+    @Inject(MAT_DIALOG_DATA) public editProductData : Product){
+      this.dateAdapter.setLocale('ro-RO');
+    }
 
 
     ngOnInit(): void {
