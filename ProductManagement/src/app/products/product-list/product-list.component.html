@@ -1,0 +1,82 @@
+<div class="container">
+    <div style="margin-top: 20px;">
+      <mat-form-field>
+        <mat-label>Filtrare</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="expression to filter rows" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+      
+          <!-- CodIdx Column -->
+          <ng-container matColumnDef="codIdx">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CodIdx </th>
+            <td mat-cell *matCellDef="let row"> {{row.codIdx}} </td>
+          </ng-container>
+      
+          <!-- CodIdxAlt Column -->
+          <ng-container matColumnDef="codIdxAlt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CodIdxAlt </th>
+            <td mat-cell *matCellDef="let row"> {{row.codIdxAlt}} </td>
+          </ng-container>
+      
+      
+          <!-- CodMagazin Column -->
+          <ng-container matColumnDef="codMagazin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cod Magazin </th>
+            <td mat-cell *matCellDef="let row"> {{row.codMagazin}} </td>
+          </ng-container>
+      
+          <!-- Denumire Column -->
+          <ng-container matColumnDef="denumire">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Denumire </th>
+            <td mat-cell *matCellDef="let row"> {{row.denumire}} </td>
+          </ng-container>
+
+          <!-- DataInregistrare Column -->
+          <ng-container matColumnDef="dataInregistrare">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Inregistrare </th>
+            <td mat-cell *matCellDef="let row"> {{row.dataInregistrare | date:'dd.MM.yyyy'}} </td>
+          </ng-container>
+
+          <!-- Cantitate Column -->
+          <ng-container matColumnDef="cantitate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantitate </th>
+            <td mat-cell *matCellDef="let row"> {{row.cantitate}} </td>
+          </ng-container>
+
+          <!-- PretUnitar Column -->
+          <ng-container matColumnDef="pretUnitar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Pret Unitar </th>
+            <td mat-cell *matCellDef="let row"> {{row.pretUnitar}} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            <td mat-cell *matCellDef="let row" class="tdButtons"> 
+              <div >
+                <button mat-icon-button color="primary" (click)="editProduct(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteProduct(row,row.CodIdx,row.CodIdxAlt)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of books"></mat-paginator>
+      </div>
+      <button mat-raised-button color="accent" class="adding" (click)="openDialogProduct()">+</button>
+    </div>
+  </div>

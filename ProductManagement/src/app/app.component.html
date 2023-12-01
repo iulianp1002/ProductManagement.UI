@@ -1,0 +1,87 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <span class="space-left">Management Produse</span>
+</mat-toolbar>
+
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+               (closed)="events.push('close!')">
+    <p style="color: white;">Sidenav content</p>
+    
+   <mat-list>
+    <mat-list-item>
+      <mat-icon matListItemIcon>home</mat-icon>
+      <div matListItemTitle>Magazine</div>
+      <div matListItemLine>
+        <a class="card" [routerLink]="['/stores']" >total: {{totalStores}}
+        </a>
+    </div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon matListItemIcon>folder</mat-icon>
+      <div matListItemTitle>Produse</div>
+      <div matListItemLine>
+        <a class="card" [routerLink]="['/products']" >Total : {{totalProducts}}
+        </a>
+      </div>
+    </mat-list-item>
+   </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="grid-container">
+
+      <div class="grid-child purple">
+        <button  mat-fab color="accent" aria-label="Example icon button with a bookmark icon" (click)="sidenav.toggle()" class="buttonish" >
+          <mat-icon  *ngIf="!sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_right</mat-icon>
+          <mat-icon *ngIf="sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_left</mat-icon>
+          </button>
+      </div>
+  
+      <div class="grid-child green">
+        <router-outlet></router-outlet>
+      </div>
+    
+  </div>
+    <!-- <div class="float-container">
+
+      <div class="float-child">
+        <div class="green">Float Column 1</div>
+      </div>
+      
+      <div class="float-child">
+        <div class="blue">Float Column 2</div>
+      </div>
+      
+    </div> -->
+    <!-- <div class="main-content-container">
+
+    
+    <div class="trigger-button">
+      <button  mat-fab color="accent" aria-label="Example icon button with a bookmark icon" (click)="sidenav.toggle()" class="buttonish" >
+        <mat-icon  *ngIf="!sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_right</mat-icon>
+        <mat-icon *ngIf="sidenav.opened" aria-label="Example icon-button with a heart icon">chevron_left</mat-icon>
+        </button>
+    </div>
+      
+   
+  <div class="main-window">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+    <!-- <div class="example-events">
+      <div *ngFor="let e of events">{{e}}</div>
+    </div> -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+<div class="footerL" role="banner">
+  
+  <p>© 2023 My Website</p>
+
+</div>

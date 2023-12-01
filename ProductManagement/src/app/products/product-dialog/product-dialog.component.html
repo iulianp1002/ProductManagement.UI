@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>{{titleAction}} Produs</h1>>
+<div mat-dialog-content>
+    <form [formGroup]="productForm">
+
+    <mat-form-field appearance="fill">
+        <mat-label>CodIdx</mat-label>
+        <input formControlName="codIdx" matInput placeholder="CodIdx"> 
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>CodIdxAlt</mat-label>
+        <input formControlName="codIdxAlt" matInput placeholder="CodIdxAlt"> 
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Alege Magazin</mat-label>
+        <mat-select [ngModel]="selectedVal"  formControlName="stores" [formControl]="store"  ngDefaultControl (ngModelChane)="selectedVal">
+          <mat-option *ngFor="let store of stores" [value]="store.codMagazin" (onSelectionChange)="getValues($event)" required>{{store.codMagazin}}-{{store.denumire}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Denumire</mat-label>
+        <input formControlName="denumire" matInput placeholder="Denumire">
+    </mat-form-field> 
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Data Inregistrare</mat-label>
+        <input formControlName="dataInregistrare" matInput placeholder="Data inregistrare">
+    </mat-form-field> -->
+
+    <mat-form-field class="mat-50">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataInregistrare">
+        <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
+        <mat-hint>dd.MM.yyyy</mat-hint>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Cantitate</mat-label>
+        <input formControlName="cantitate" matInput placeholder="Cantitate">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Pret Unitar</mat-label>
+        <input formControlName="pretUnitar" matInput placeholder="Pret Unitar">
+    </mat-form-field>
+    </form>
+    
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close="">Anuleaza</button>
+    <button mat-raised-button color="primary" (click)="addProduct()">Salveaza</button>
+</div>
+
