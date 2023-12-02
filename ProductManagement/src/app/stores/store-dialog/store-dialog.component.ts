@@ -41,6 +41,7 @@ export class StoreDialogComponent {
   titleAction: string = "Adauga";
   selectedVal: any;
   stores: Store[] = [];
+  readonly: boolean = false;
 
   constructor(private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -53,7 +54,7 @@ export class StoreDialogComponent {
   ngOnInit(): void {
     this.storeForm = this.formBuilder.group({
 
-      codMagazin: ['', Validators.required],
+      codMagazin: [null, Validators.required],
       denumire: ['', Validators.required],
       detalii: ['']
 
@@ -75,6 +76,7 @@ export class StoreDialogComponent {
       this.storeForm.controls['denumire'].setValue(this.editStoreData.denumire);
       this.storeForm.controls['detalii']?.setValue(this.editStoreData.detalii);
     
+      this.readonly = true;
     }
 
 
@@ -112,12 +114,12 @@ export class StoreDialogComponent {
   updateStore() {
 
     var updateModel = new Store();
-//this.storeForm.controls['codMagazin'].disable();
+
     updateModel.codMagazin = this.storeForm.value.codMagazin;
     updateModel.denumire = this.storeForm.value.denumire;
     updateModel.detalii = this.storeForm.value.detalii;
 
-console.log(updateModel)
+console.log('updating:',updateModel)
     this.storeService.updateStore(updateModel).subscribe({
       next: (res: any) => {
         alert("magazin actualizat cu succes !");

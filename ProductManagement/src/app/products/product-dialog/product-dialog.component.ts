@@ -42,6 +42,7 @@ export class ProductDialogComponent implements OnInit {
   selectedStores: Store[] = [];
   selectedStoreIds: number[] = [];
   selectedVal: any;
+  readonly: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private productService: ProductService,
@@ -77,7 +78,7 @@ export class ProductDialogComponent implements OnInit {
       this.selectedVal = this.selectedStoreIds;
       this.actionBtn = 'update';
       this.titleAction = 'Modifica';
-
+      this.readonly = true;
       this.selectedVal = this.editProductData.codMagazin;
 
       this.productForm.controls['codIdx']?.setValue(this.editProductData.codIdx);
@@ -87,6 +88,7 @@ export class ProductDialogComponent implements OnInit {
       this.productForm.controls['dataInregistrare']?.setValue(this.editProductData.dataInregistrare);
       this.productForm.controls['cantitate']?.setValue(this.editProductData.cantitate);
       this.productForm.controls['pretUnitar']?.setValue(this.editProductData.pretUnitar);
+
     }
 
   }

@@ -1,12 +1,12 @@
 <h1 mat-dialog-title>{{titleAction}} Magazin</h1>
 <div mat-dialog-content>
     <form [formGroup]="storeForm">
-
+<div [ariaReadOnly]="true">
         <mat-form-field appearance="fill" >
             <mat-label>Cod Magazin</mat-label>
-            <input formControlName="codMagazin" matInput placeholder="Cod Magazin"  >
+            <input formControlName="codMagazin" matInput placeholder="Cod Magazin"  [readonly]="readonly">
         </mat-form-field>
-
+    </div>
         <mat-form-field appearance="fill">
             <mat-label>Denumire </mat-label>
             <input formControlName="denumire" matInput placeholder="Denumire">
