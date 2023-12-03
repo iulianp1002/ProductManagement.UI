@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Product } from './product';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -11,16 +11,23 @@ import { environment } from '../environments/environment';
 export class ProductService {
   public TotalProductsCount = 0;
   private url = "Product";
-  @Output() ProductsStateEvent = new EventEmitter<any>();
-
+  //@Output() ProductsStateEvent = new EventEmitter<any>();
+  public myBehaviorSubject = new BehaviorSubject<any>(null);
+  // private dataSubject = new BehaviorSubject<any>(null);
+  
 
   constructor(private http: HttpClient) {
   }
 
+
+
   public getProducts(): Observable<Product[]> {
 
     return this.http.get<Product[]>(`${environment.apiURL}/${this.url}/ProductList`).pipe(
-      tap((data) => { this.ProductsStateEvent.emit(data); }))
+      tap((data) => { console.log('tapping:',data.length)
+        //this.ProductsStateEvent.emit(data.length); 
+        this.myBehaviorSubject.next(data.length);
+      }))
 
   }
 

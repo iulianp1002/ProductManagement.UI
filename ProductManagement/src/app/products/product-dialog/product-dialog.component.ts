@@ -35,6 +35,7 @@ export class ProductDialogComponent implements OnInit {
 
   selectedValue = '';
   stores: Store[] = [];
+  products: Product[] = [];
   productForm!: FormGroup;
   actionBtn: string = 'save';
   titleAction: string = "Adauga";
@@ -68,6 +69,13 @@ export class ProductDialogComponent implements OnInit {
     this.storeService.getStores().subscribe({
       next: (res: Store[]) => {
         this.stores = res;
+      },
+      error: (err: any) => {
+      }
+    })
+    this.productService.getProducts().subscribe({
+      next: (res: Product[]) => {
+        this.products = res;
       },
       error: (err: any) => {
       }

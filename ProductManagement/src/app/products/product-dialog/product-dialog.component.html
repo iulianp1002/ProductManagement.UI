@@ -12,11 +12,24 @@
         <input formControlName="codIdxAlt" matInput placeholder="CodIdxAlt" [readonly]="readonly"> 
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
         <mat-label>Alege Magazin</mat-label>
         <mat-select [ngModel]="selectedVal"  formControlName="codMagazin" [formControl]="store"  ngDefaultControl (ngModelChange)="selectedVal">
           <mat-option *ngFor="let store of stores" [value]="store.codMagazin" (onSelectionChange)="getValues($event)" required>{{store.codMagazin}}-{{store.denumire}}</mat-option>
         </mat-select>
+      </mat-form-field> -->
+      <mat-form-field>
+        <mat-label>Magazin</mat-label>
+        <mat-select formControlName="codMagazin" >
+          <!-- <mat-option>--</mat-option> -->
+          @for (store of stores; track store) {
+            <mat-option [value]="store.codMagazin">{{store.codMagazin}}-{{store.denumire}}</mat-option>
+          }
+        </mat-select>
+        @if (productForm.controls['codMagazin'].hasError('required')) {
+          <mat-error>Alegeti un magazin</mat-error>
+        }
+        
       </mat-form-field>
 
     <mat-form-field appearance="fill">

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Product } from '../products/product';
 import { environment } from '../environments/environment';
 import { Store } from './store';
@@ -12,8 +12,9 @@ export class StoreService {
 
   public TotalProductsCount = 0;
   private url = "Store";
-  @Output() StoresStateEvent = new EventEmitter<any>();
+  //@Output() StoresStateEvent = new EventEmitter<any>();
 
+  public myBehaviorSubject = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
   }
@@ -21,7 +22,10 @@ export class StoreService {
   public getStores(): Observable<Store[]> {
 
     return this.http.get<Store[]>(`${environment.apiURL}/${this.url}/StoreList`).pipe(
-      tap((data) => { this.StoresStateEvent.emit(data); }))
+      tap((data) => { 
+        //this.StoresStateEvent.emit(data); 
+        this.myBehaviorSubject.next(data.length);
+      }))
 
   }
 
