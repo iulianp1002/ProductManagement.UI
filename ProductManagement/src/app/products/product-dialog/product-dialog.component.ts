@@ -115,18 +115,6 @@ export class ProductDialogComponent implements OnInit {
     }
   }
 
-  getProductIdList(productList: Store[]): number[] {
-    let arrId: number[] = [];
-
-    for (var i = 0; i < productList.length; i++) {
-
-      arrId.push(parseInt((productList[i]).toString()));
-
-    }
-
-    return arrId;
-  }
-
   addProduct() {
     if (!this.editProductData) {
       if (this.productForm.valid) {
@@ -177,5 +165,10 @@ export class ProductDialogComponent implements OnInit {
       error: (err: any) => {
       }
     })
+  }
+
+  close() {
+    // Close the dialog without passing any value
+    this.dialogRef.close();
   }
 }

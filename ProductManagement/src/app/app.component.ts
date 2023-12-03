@@ -5,7 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ProductListComponent } from './products/product-list/product-list.component';
@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
   data: any;
   dataSubscription: Subscription | undefined;
 
-  @ViewChild(ProductListComponent) productList: any;
-  @ViewChild(StoreListComponent) storeList: any;
+   @ViewChild(ProductListComponent) productList: any;
+   @ViewChild(StoreListComponent) storeList: any;
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
       this.totalStores = value;
     });
 
-    this.productService.myBehaviorSubject.subscribe(data => {
+    this.productService.myProductBehaviorSubject.subscribe(data => {
       this.totalProducts = data;
 
     });
@@ -63,10 +63,11 @@ export class AppComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productService.getProducts().subscribe({
+    this.productService.getProducts()
+    .subscribe({
       next: (res: Product[]) => {
         this.productList = res.length;
-        //this.totalProducts = res.length;
+        
       },
     })
   }

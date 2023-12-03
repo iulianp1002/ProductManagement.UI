@@ -119,7 +119,6 @@ export class StoreDialogComponent {
     updateModel.denumire = this.storeForm.value.denumire;
     updateModel.detalii = this.storeForm.value.detalii;
 
-console.log('updating:',updateModel)
     this.storeService.updateStore(updateModel).subscribe({
       next: (res: any) => {
         alert("magazin actualizat cu succes !");
@@ -130,5 +129,10 @@ console.log('updating:',updateModel)
       error: (err: any) => {
       }
     })
+  }
+
+  close() {
+    // Close the dialog without passing any value
+    this.dialogRef.close();
   }
 }

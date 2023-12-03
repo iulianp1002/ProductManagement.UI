@@ -10,9 +10,7 @@ import { Store } from './store';
 })
 export class StoreService {
 
-  public TotalProductsCount = 0;
   private url = "Store";
-  //@Output() StoresStateEvent = new EventEmitter<any>();
 
   public myBehaviorSubject = new BehaviorSubject<any>(null);
 
@@ -23,7 +21,7 @@ export class StoreService {
 
     return this.http.get<Store[]>(`${environment.apiURL}/${this.url}/StoreList`).pipe(
       tap((data) => { 
-        //this.StoresStateEvent.emit(data); 
+      
         this.myBehaviorSubject.next(data.length);
       }))
 
